@@ -57,6 +57,15 @@ function love.load() --called once when the game StartState
     [3] = love.graphics.newImage('graphics/tanks/tanks_turret2.png'), --does not match file name
     [4] = love.graphics.newImage('graphics/tanks/tanks_turret4.png')}
 
+    gTanks = {}
+    for k, color in pairs({'desert', 'gray', 'blue'}) do
+        local x = math.random(0, VIRTUAL_WIDTH - 100)
+        local y = VIRTUAL_HEIGHT - 100
+        local type = math.random(1, 5)
+        local t = Tank(x, y, color, type)
+        table.insert(gTanks, t)
+    end
+
 
     gStateMachine = StateMachine{
         ['start'] = function() return StartState() end,

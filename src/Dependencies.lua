@@ -20,6 +20,7 @@ require 'src/states/StartState'
 require 'src/states/PlayState'
 
 require 'src/Tank'
+require'src/PlayerTank'
 
 
 
