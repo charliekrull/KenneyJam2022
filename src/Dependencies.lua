@@ -9,17 +9,21 @@ push = require 'lib/push'
 
 Class = require 'lib/class' --allows for object oriented programming
 
+Timer = require 'lib/knife/timer'
+
 require 'src/constants'
+require 'src/Util'
 
 require 'src/StateMachine'
+require 'src/states/BaseState'
+require 'src/states/StartState'
+require 'src/states/PlayState'
+
+require 'src/Tank'
 
 
-gTankImages = {
-    ['green'] = love.graphics.load('graphics/tanks/tanks_tankGreen1.png'),
-    ['desert'] = love.graphics.load('graphics/tanks/tanks_tankDesert1.png'),
-    ['gray'] = love.graphics.load('graphics/tanks/tanks_tankGrey1.png'),
-    ['navy'] = love.graphics.load('graphics/tanks/taanks_tankNavy1.png')
-}
+
+
 
 WINDOW_WIDTH = 1280
 WINDOW_HEIGHT = 720
