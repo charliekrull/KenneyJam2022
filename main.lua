@@ -16,8 +16,24 @@ function love.load() --called once when the game StartState
         canvas = true
     })
 
+    gSounds = {['music'] = love.audio.newSource('sounds/Impact Prelude.mp3', 'stream')} 
+    --[["Impact Prelude" Kevin MacLeod (incompetech.com)
+    Licensed under Creative Commons: By Attribution 4.0 License
+    http://creativecommons.org/licenses/by/4.0/]]
+
+    gSounds['music']:setLooping(true)
+    gSounds['music']:play()
+
     gFonts = {['title'] = love.graphics.newFont('fonts/Gasalt-Black.ttf', 80), --Title font by Remi Lagast https://www.1001fonts.com/gasalt-font.html
-     ['thin'] = love.graphics.newFont('fonts/Gasalt-Thin.ttf', 64)}
+     ['thin'] = love.graphics.newFont('fonts/Gasalt-Thin.ttf', 64),
+    ['credits'] = love.graphics.newFont('fonts/Inter-regular.ttf', 32)} --credits font by Rasmus Andersson https://fonts.google.com/specimen/Inter
+
+     
+    gBackgrounds = {[1] = love.graphics.newImage('graphics/backgrounds/colored_desert.png'),
+    [2] = love.graphics.newImage('graphics/backgrounds/colored_grass.png'),
+    [3] = love.graphics.newImage('graphics/backgrounds/colored_land.png'),
+    [4] = love.graphics.newImage('graphics/backgrounds/colored_shroom.png')
+    }
 
      --load up the tank graphics
 
@@ -69,7 +85,8 @@ function love.load() --called once when the game StartState
 
     gStateMachine = StateMachine{
         ['start'] = function() return StartState() end,
-        ['play'] = function() return PlayState() end
+        ['play'] = function() return PlayState() end,
+        ['credits'] = function () return Credits() end
     }
 
     gStateMachine:change('start')

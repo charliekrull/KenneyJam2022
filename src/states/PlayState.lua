@@ -8,6 +8,7 @@ function PlayState:enter()
     player = PlayerTank(VIRTUAL_WIDTH / 2, VIRTUAL_HEIGHT / 2, 'green', 1)
     table.insert(gTanks, player)
     gBullets = {}
+
 end
 
 function PlayState:update(dt)
