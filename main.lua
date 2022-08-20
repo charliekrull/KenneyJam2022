@@ -5,7 +5,7 @@
 require 'src/Dependencies'
 
 function love.load() --called once when the game StartState
-    love.window.setTitle("Pop-up Tanks")
+    love.window.setTitle("Pop Tanks")
 
     math.randomseed(os.time())
 

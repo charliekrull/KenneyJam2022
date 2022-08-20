@@ -21,6 +21,7 @@ require 'src/states/PlayState'
 
 require 'src/Tank'
 require'src/PlayerTank'
+require 'src/Bullet'
 
 
 

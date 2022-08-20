@@ -19,6 +19,10 @@ function Tank:init(x, y, color, type)
     self.turretRotation = 0
     self.turretSpeed = math.pi/4
 
+    self.turretOffsetX = 0
+    self.turretOffsetY = self.turret:getHeight() / 2
+
+
     self.width = self.body:getWidth() * self.size
     self.height = self.body:getHeight() * self.size
 
@@ -40,6 +44,7 @@ function Tank:update(dt)
     if self.direction == 1 and self.turretRotation < -math.pi / 2 then
         self:flipTurret()
 
+
     elseif self.direction == -1 and self.turretRotation > -math.pi/2 then
         self:flipTurret()
         
@@ -52,27 +57,27 @@ function Tank:render()
 
     if self.type == 1 then
         love.graphics.draw(self.track, self.x + 2 * self.size * self.direction, self.y + (self.height - self.track:getHeight() * 0.75 * self.size + 3 * self.size), 0, self.size * self.direction, self.size) --draw tracks 
-        love.graphics.draw(self.turret, self.x + self.width / 2 + 5 * self.size * self.direction, self.y + 2 * self.size, self.turretRotation, self.size, self.size) --draw turret
+        love.graphics.draw(self.turret, self.x + self.width / 2 * self.direction + 5 * self.size * self.direction, self.y + 8 * self.size, self.turretRotation, self.size, self.size, self.turretOffsetX, self.turretOffsetY) --draw turret
         love.graphics.draw(self.body, self.x, self.y, 0, self.size * self.direction, self.size) --draw body
     
     elseif self.type == 2 then
         love.graphics.draw(self.track, self.x + 4 * self.size * self.direction, self.y + (self.height - self.track:getHeight() * 0.75 * self.size + 3 * self.size), 0, self.size * self.direction, self.size) --draw tracks 
-        love.graphics.draw(self.turret, self.x + self.width / 2 + 5 * self.size * self. direction, self.y + 2, self.turretRotation, self.size, self.size) --draw turret
+        love.graphics.draw(self.turret, self.x + self.width / 2 * self.direction + 10 * self.size * self. direction, self.y + 8 * self.size, self.turretRotation, self.size, self.size, self.turretOffsetX, self.turretOffsetY) --draw turret
         love.graphics.draw(self.body, self.x, self.y, 0, self.size * self.direction, self.size) --draw body
 
     elseif self.type == 3 then
         love.graphics.draw(self.track, self.x + 4 * self.size * self.direction, self.y + (self.height - self.track:getHeight() * 0.75 * self.size + 3 * self.size), 0, self.size * self.direction, self.size) --draw tracks 
-        love.graphics.draw(self.turret, self.x + self.width / 2 + 5 * self.size * self.direction, self.y + 2 * self.size, self.turretRotation, self.size, self.size) --draw turret
+        love.graphics.draw(self.turret, self.x + self.width / 2 * self.direction + 5 * self.size * self.direction, self.y + 8 * self.size, self.turretRotation, self.size, self.size, self.turretOffsetX, self.turretOffsetY) --draw turret
         love.graphics.draw(self.body, self.x, self.y, 0, self.size * self.direction, self.size) --draw body
         
     elseif self.type == 4 then
-        love.graphics.draw(self.turret, self.x + self.width / 2 + 5 * self.size * self.direction, self.y + 2 * self.size, self.turretRotation, self.size, self.size) --draw turret
+        love.graphics.draw(self.turret, self.x + self.width / 2 * self.direction + 5 * self.size * self.direction, self.y + 8 * self.size, self.turretRotation, self.size, self.size, self.turretOffsetX, self.turretOffsetY) --draw turret
         love.graphics.draw(self.body, self.x, self.y, 0, self.size * self.direction, self.size) --draw body
         love.graphics.draw(self.track, self.x + 4 * self.size * self.direction, self.y + (self.height - self.track:getHeight() * 0.75 * self.size + 3 * self.size), 0, self.size * self.direction, self.size) --draw tracks
         love.graphics.draw(self.track, self.x + 45 * self.size * self.direction, self.y + (self.height - self.track:getHeight()*0.75 * self.size + 3 * self.size), 0, self.size * self.direction, self.size)
 
     elseif self.type == 5 then
-        love.graphics.draw(self.turret, self.x + self.width / 2 + 5 * self.size * self.direction, self.y + 2 * self.size, self.turretRotation, self.size, self.size) --draw turret
+        love.graphics.draw(self.turret, self.x + self.width / 2 * self.direction + 5 * self.size * self.direction, self.y + 8 * self.size, self.turretRotation, self.size, self.size, self.turretOffsetX, self.turretOffsetY) --draw turret
         love.graphics.draw(self.body, self.x, self.y, 0, self.size * self.direction, self.size) --draw body
         love.graphics.draw(self.track, self.x - 8 * self.size * self.direction, self.y + self.height - 18 * self.size, 0, self.size * self.direction, self.size) --draw tracks 
     end
@@ -96,7 +101,7 @@ function Tank:setSize(size)
     self.height = self.body:getHeight() * self.size
 end
 
-function Tank:control()
+function Tank:control() --use AI to do stuff
 
 end
 

@@ -15,6 +15,6 @@ end
 
 function StartState:render()
     love.graphics.setFont(gFonts['title'])
-    love.graphics.printf("Pop-up Tanks", 0, VIRTUAL_HEIGHT / 4, VIRTUAL_WIDTH, 'center')
+    love.graphics.printf("Pop Tanks", 0, VIRTUAL_HEIGHT / 4, VIRTUAL_WIDTH, 'center')
 
 end
