@@ -19,6 +19,7 @@ function PlayState:update(dt)
         end
     end
 
+    player:update(dt)
     player:control(dt)
 end
 

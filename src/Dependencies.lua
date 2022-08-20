@@ -11,7 +11,7 @@ Class = require 'lib/class' --allows for object oriented programming
 
 Timer = require 'lib/knife/timer'
 
-require 'src/constants'
+
 require 'src/Util'
 
 require 'src/StateMachine'
@@ -21,8 +21,6 @@ require 'src/states/PlayState'
 
 require 'src/Tank'
 require'src/PlayerTank'
-
-
 
 
 
