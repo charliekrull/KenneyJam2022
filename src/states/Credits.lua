@@ -22,5 +22,5 @@ function Credits:render()
     love.graphics.printf('Art Assets by Kenney:\n'..'https://kenney.nl/assets/tanks\nhttps://kenney.nl/assets/platformer-pack-redux',
     0, 300, VIRTUAL_WIDTH, 'center')
 
-    love.graphics.printf('Game design and programming by Charlie Krull', 0, 450, VIRTUAL_WIDTH, 'center')
+    love.graphics.printf('Game design and programming by Charlie Krull\nhttps://charliek.itch.io/', 0, 450, VIRTUAL_WIDTH, 'center')
 end

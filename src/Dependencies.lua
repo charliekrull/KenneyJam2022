@@ -13,6 +13,8 @@ Timer = require 'lib/knife/timer'
 
 
 require 'src/Util'
+require 'src/LevelMaker'
+require 'src/Tile'
 
 require 'src/StateMachine'
 require 'src/states/BaseState'
@@ -31,3 +33,5 @@ WINDOW_HEIGHT = 720
 
 VIRTUAL_WIDTH = 1280
 VIRTUAL_HEIGHT = 720
+
+GROUND_LEVEL = 11
