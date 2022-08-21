@@ -17,3 +17,16 @@ function table.randomChoice(tbl) --returns single random element in tbl
         
     
 end
+
+
+function table.contains(tbl, element)
+
+    for k, value in pairs(tbl) do
+        if value == element then
+            return true
+        end
+    end
+
+    return false
+
+end

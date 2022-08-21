@@ -95,10 +95,11 @@ function Tank:takeDamage(amt)
 
 end
 
-function Tank:setSize(size)
-    self.size = size
+function Tank:grow()
+    self.size = self.size + 0.5
     self.width = self.body:getWidth() * self.size
     self.height = self.body:getHeight() * self.size
+    
 end
 
 function Tank:control() --use AI to do stuff
@@ -107,4 +108,15 @@ end
 
 function Tank:flipTurret()
     self.turretRotation = -math.pi - self.turretRotation
+end
+
+function Tank:fireTurret() --how long can I make this next line?
+    local b = Bullet(self.x + self.width/2 * self.direction + 5 * self.size * self.direction + self.turret:getWidth() * self.size *math.cos(self.turretRotation), self.y + 8 * self.size + self.turret:getWidth() * self.size * math.sin(self.turretRotation), self.size)
+    b.dx = b.speed * math.cos(self.turretRotation)
+    b.dy = b.speed * math.sin(self.turretRotation)
+
+    b.rotation = self.turretRotation
+
+    table.insert(gBullets, b)
+    
 end

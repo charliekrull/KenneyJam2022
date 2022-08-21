@@ -6,9 +6,11 @@ function Bullet:init(x, y, size)
     self.y = y
     self.size = size
 
-    self.dx = 700
-    self.dy = -200
+    self.speed = 1000
+    self.dx = 0
+    self.dy = 0
     self.gravity = 800
+    self.rotation = 0
 
     self.image = love.graphics.newImage('graphics/tanks/tank_bullet5.png')
     self.width = self.image:getWidth() * self.size
@@ -36,5 +38,5 @@ function Bullet:update(dt)
 end
 
 function Bullet:render()
-    love.graphics.draw(self.image, self.x, self.y, 0, self.size, self.size)
+    love.graphics.draw(self.image, self.x, self.y, self.rotation, self.size, self.size)
 end
