@@ -14,6 +14,7 @@ function Tank:init(x, y, color, type)
     self.direction = 1
     self.movementRemaining = 400
     self.target = nil
+    self.targetAngle = math.pi/4
 
     self.body = gTankBodies[self.color][self.type]
     self.track = gTankTracks[self.type]
@@ -121,7 +122,6 @@ function Tank:control() --use AI to do stuff
 
     self.targetAngle = math.random() * (math.pi/2)
     
-    Timer.tween(0.5, {[self] = {turretRotation = self.targetAngle}}):finish(self:fireTurret())
 
     
 

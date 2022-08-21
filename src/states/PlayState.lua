@@ -62,6 +62,7 @@ function PlayState:update(dt)
 
     else --another tank's turn
         self.active:control()
+        Timer.tween(0.5, {[self.active] = {turretRotation = self.active.targetAngle}}):finish(self.active:fireTurret())
     end
 
     for k, tank in pairs(gTanks) do
