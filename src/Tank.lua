@@ -12,6 +12,8 @@ function Tank:init(x, y, color, type)
     self.size = 0.5
     self.health = 3
     self.direction = 1
+    self.movementRemaining = 400
+    self.target = nil
 
     self.body = gTankBodies[self.color][self.type]
     self.track = gTankTracks[self.type]
@@ -105,6 +107,23 @@ function Tank:grow()
 end
 
 function Tank:control() --use AI to do stuff
+    self.target = player
+    while self.target == self do
+        self.target = table.randomChoice(gTanks)
+    end
+
+    if self.target.x < self.x then
+        self.direction = -1
+
+    else
+        self.direction = 1
+    end
+
+    self.targetAngle = math.random() * (math.pi/2)
+    
+    Timer.tween(0.5, {[self] = {turretRotation = self.targetAngle}}):finish(self:fireTurret())
+
+    
 
 end
 

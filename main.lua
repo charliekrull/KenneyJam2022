@@ -16,7 +16,9 @@ function love.load() --called once when the game StartState
         canvas = true
     })
 
-    gSounds = {['music'] = love.audio.newSource('sounds/Impact Prelude.mp3', 'stream')} 
+    gSounds = {['music'] = love.audio.newSource('sounds/Impact Prelude.mp3', 'stream'),
+        ['lose-music'] = love.audio.newSource('sounds/failfare-86009.mp3', 'static'),
+        ['win-music'] = love.audio.newSource('sounds/victory.mp3', 'static')} 
     --[["Impact Prelude" Kevin MacLeod (incompetech.com)
     Licensed under Creative Commons: By Attribution 4.0 License
     http://creativecommons.org/licenses/by/4.0/]]
@@ -25,7 +27,7 @@ function love.load() --called once when the game StartState
     gSounds['music']:play()
 
     gFonts = {['title'] = love.graphics.newFont('fonts/Gasalt-Black.ttf', 80), --Title font by Remi Lagast https://www.1001fonts.com/gasalt-font.html
-     ['thin'] = love.graphics.newFont('fonts/Gasalt-Thin.ttf', 64),
+    ['thin'] = love.graphics.newFont('fonts/Gasalt-Thin.ttf', 64),
     ['credits'] = love.graphics.newFont('fonts/Inter-regular.ttf', 32)} --credits font by Rasmus Andersson https://fonts.google.com/specimen/Inter
 
      
@@ -92,7 +94,8 @@ function love.load() --called once when the game StartState
     gStateMachine = StateMachine{
         ['start'] = function() return StartState() end,
         ['play'] = function() return PlayState() end,
-        ['credits'] = function () return Credits() end
+        ['credits'] = function() return Credits() end,
+        ['game-over'] = function() return GameOverState() end
     }
 
     gStateMachine:change('start')

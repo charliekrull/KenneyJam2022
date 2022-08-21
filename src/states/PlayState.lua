@@ -19,6 +19,7 @@ function PlayState:enter()
 
     currentTurn = 1
     canInput = true
+    self.active = player
     randomizeStarts()
     gBullets = {}
     gGround, background = LevelMaker:generateLevel(LevelMaker:getLandType()) --make a random level
@@ -29,6 +30,12 @@ end
 
 function PlayState:update(dt)
     self.timer = self.timer + dt
+    
+
+    if love.keyboard.wasPressed('d') then
+        player.alive = false
+    end
+    
     for k, explosion in pairs(gExplosions) do
         if self.timer - explosion.creationTime >= 0.1 then
             gExplosions[k] = nil
@@ -52,8 +59,9 @@ function PlayState:update(dt)
     if canInput then --it's the player's turn
         player:control(dt)
 
+
     else --another tank's turn
-        gTanks[currentTurn]:control()
+        self.active:control()
     end
 
     for k, tank in pairs(gTanks) do
@@ -121,14 +129,29 @@ function PlayState:render()
 end
 
 function PlayState:advanceTurn()
+
+    --check if we have won/lost
+    if #gTanks == 1 then
+        if player.alive then
+            gStateMachine:change('game-over', {playerWon = true})
+        end
+
+    elseif not player.alive then
+        gStateMachine:change('game-over', {playerWon = false})   
+
+    end
+
     currentTurn = (currentTurn % #gTanks) + 1
 
     if currentTurn == 1 then
         canInput = true
+        self.active = player
 
     else
         canInput = false
-    end 
+        self.active = gTanks[currentTurn]
+    end
+
 
 end
 
@@ -138,6 +161,7 @@ function PlayState:getBulletCollisions()
         for l, tile in pairs(gGround) do
             if bullet:collides(tile) then
                 gBullets[k] = nil
+                self:advanceTurn()
                 return {['collider'] ='tile', ['x'] = bullet.x, ['y'] = bullet.y, ['size'] = bullet.size}
             end
         end
@@ -145,12 +169,17 @@ function PlayState:getBulletCollisions()
         for m, tank in pairs(gTanks) do
             if bullet:collides(tank) then
                 gBullets[k] = nil
+                self:advanceTurn()
                 return {['collider'] = tank, ['x'] = bullet.x, ['y'] = bullet.y, ['size'] = bullet.size}
             end
         end
 
         return false
     end
+end
+
+function PlayState:exit()
+
 end
 
 function randomizeStarts() 
