@@ -10,7 +10,7 @@ function Tank:init(x, y, color, type)
     self.alive = true
     self.speed = 200
     self.size = 0.5
-    self.health = 4
+    self.health = 3
     self.direction = 1
 
     self.body = gTankBodies[self.color][self.type]
@@ -99,6 +99,8 @@ function Tank:grow()
     self.size = self.size + 0.5
     self.width = self.body:getWidth() * self.size
     self.height = self.body:getHeight() * self.size
+
+    self.y = self.y - 32
     
 end
 

@@ -22,10 +22,19 @@ function PlayState:enter()
     randomizeStarts()
     gBullets = {}
     gGround, background = LevelMaker:generateLevel(LevelMaker:getLandType()) --make a random level
+    gExplosions = {}
+    self.timer = 0
 
 end
 
 function PlayState:update(dt)
+    self.timer = self.timer + dt
+    for k, explosion in pairs(gExplosions) do
+        if self.timer - explosion.creationTime >= 0.1 then
+            gExplosions[k] = nil
+        end
+    end
+
     if love.keyboard.keysPressed['escape'] then
         love.event.quit()
 
@@ -63,14 +72,28 @@ function PlayState:update(dt)
     local collisions = self:getBulletCollisions() --calculate collisions with all the bullets
 
     if collisions then
-        local collider = collisions[1]
+        local collider = collisions['collider']
 
 
-        if table.contains(gTanks, collider) then
-            collider:takeDamage(1)
-            collider:grow()
+        local e = Explosion(collisions['x'], collisions['y'], collisions['size'], self.timer)
+        e.x = e.x - e.width / 2
+        e.y = e.y - e.height / 2
+        table.insert(gExplosions, e)
+
+        for k, exp in pairs(gExplosions) do
+            for l, tank in pairs(gTanks) do
+                if exp:collides(tank) then
+                    tank:takeDamage(1)
+                    tank:grow()
+                end
+            end
+        end 
+    end
+
+    for k, tank in pairs(gTanks) do
+        if not tank.alive then
+            table.remove(gTanks, k)
         end
-        
     end
 end
 
@@ -88,6 +111,10 @@ function PlayState:render()
 
     for k, tile in pairs(gGround) do
         tile:render()
+    end
+
+    for k, explosion in pairs(gExplosions) do
+        explosion:render()
     end
 
 
@@ -111,14 +138,14 @@ function PlayState:getBulletCollisions()
         for l, tile in pairs(gGround) do
             if bullet:collides(tile) then
                 gBullets[k] = nil
-                return {'tile', bullet.x, bullet.y}
+                return {['collider'] ='tile', ['x'] = bullet.x, ['y'] = bullet.y, ['size'] = bullet.size}
             end
         end
 
         for m, tank in pairs(gTanks) do
             if bullet:collides(tank) then
                 gBullets[k] = nil
-                return {tank, bullet.x, bullet.y}
+                return {['collider'] = tank, ['x'] = bullet.x, ['y'] = bullet.y, ['size'] = bullet.size}
             end
         end
 

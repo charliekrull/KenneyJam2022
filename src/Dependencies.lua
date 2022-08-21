@@ -15,6 +15,7 @@ Timer = require 'lib/knife/timer'
 require 'src/Util'
 require 'src/LevelMaker'
 require 'src/Tile'
+require 'src/Explosion'
 
 require 'src/StateMachine'
 require 'src/states/BaseState'
